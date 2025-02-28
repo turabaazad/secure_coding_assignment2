@@ -1,7 +1,7 @@
 """
 Module: assignment1_code_sample
-This module provides functions to get user input, fetch data from an API, store data in a database,
-and send an email notification.
+This module provides functions to get user input, fetch data from an API,
+store data in a database, and send an email notification.
 """
 
 import os
@@ -9,7 +9,11 @@ from urllib.request import urlopen
 
 import pymysql
 
-db_config = {"host": "mydatabase.com", "user": "admin", "password": "secret123"}
+db_config = {
+    "host": "mydatabase.com",
+    "user": "admin",
+    "password": "secret123",
+}
 
 
 def get_user_input():
@@ -32,7 +36,8 @@ def get_data():
     Fetch data from an API endpoint and return the decoded response.
     """
     url = "http://insecure-api.com/get-data"
-    api_data = urlopen(url).read().decode()
+    with urlopen(url) as response:
+        api_data = response.read().decode()
     return api_data
 
 
@@ -43,11 +48,10 @@ def save_to_db(data):
     query = "INSERT INTO mytable (column1, column2) VALUES (%s, %s)"
     try:
         with pymysql.connect(**db_config) as connection:
-            with connection.cursor() as cursor:          
-                cursor.execute(query, (data, "Another Value")) 
+
+            with connection.cursor() as cursor:
+                cursor.execute(query, (data, "Another Value"))
                 connection.commit()
-                cursor.close()
-                connection.close()
     except pymysql.MySQLError as e:
         print(f"error:{e}")
 
