@@ -40,11 +40,12 @@ def save_to_db(data):
     """
     Save data to the database using a parameterized query.
     """
-    query = f"INSERT INTO mytable (column1, column2) VALUES ('{data}', 'Another Value')"
+    query = "INSERT INTO mytable (column1, column2) VALUES (%s, %s)"
     try:
         with pymysql.connect(**db_config) as connection:
             with connection.cursor() as cursor:
-                cursor.execute(query (data, "Another Value"))
+                
+                cursor.execute(query, (data, "Another Value")) 
                 connection.commit()
                 cursor.close()
                 connection.close()
