@@ -19,6 +19,10 @@ on:
   schedule:
     - cron: "36 9 * * 4"
 
+# added explicit permissions in the file to pass
+permissions:
+  contents: read
+  
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
@@ -36,9 +40,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [python]  # Define supported languages explicitly
-        os: [ubuntu-latest]  # Set OS for consistency
-        build-mode: [none]  # Set build-mode explicitly to avoid errors
+        language: [python] # Define supported languages explicitly
+        os: [ubuntu-latest] # Set OS for consistency
+        build-mode: [none] # Set build-mode explicitly to avoid errors
 
         # CodeQL supports the following values keywords for 'language': 'c-cpp', 'csharp', 'go', 'java-kotlin', 'javascript-typescript', 'python', 'ruby', 'swift'
         # Use `c-cpp` to analyze code written in C, C++ or both
