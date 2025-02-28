@@ -43,8 +43,7 @@ def save_to_db(data):
     query = "INSERT INTO mytable (column1, column2) VALUES (%s, %s)"
     try:
         with pymysql.connect(**db_config) as connection:
-            with connection.cursor() as cursor:
-                
+            with connection.cursor() as cursor:          
                 cursor.execute(query, (data, "Another Value")) 
                 connection.commit()
                 cursor.close()
