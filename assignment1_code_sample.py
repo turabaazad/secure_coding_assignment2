@@ -7,7 +7,6 @@ and send an email notification.
 import os
 from urllib.request import urlopen
 
-
 import pymysql
 
 db_config = {"host": "mydatabase.com", "user": "admin", "password": "secret123"}
@@ -42,12 +41,15 @@ def save_to_db(data):
     Save data to the database using a parameterized query.
     """
     query = f"INSERT INTO mytable (column1, column2) VALUES ('{data}', 'Another Value')"
-    with pymysql.connect(**db_config) as connection:
-        with connection.cursor() as cursor:
-            cursor.execute(query)
-            connection.commit()
-            cursor.close()
-            connection.close()
+    try:
+        with pymysql.connect(**db_config) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(query (data, "Another Value"))
+                connection.commit()
+                cursor.close()
+                connection.close()
+    except pymysql.MySQLError as e:
+        print(f"error:{e}")
 
 
 if __name__ == "__main__":
